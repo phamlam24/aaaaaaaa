@@ -11,6 +11,8 @@ import route from "riot-route";
 import "./tags/homepage.tag"
 import {checkAuth} from './mx'
 import './mx.js'
+import './tags/event.tag'
+import './tags/uploadevent.tag'
 
 
 
@@ -111,38 +113,35 @@ route("/upload", () =>{
 })
   
 route('/home..', async () => {
-
-  const products = await mxFirebase.collection('products').getAll() // lay tat ca moi thu tu database
+  const query = route.query();
+  const products = (await mxFirebase.collection("products").paginate(1,100,query, '')).data; // { data: [], total: 99 } 
+  console.log(products);
+  console.log(query);
   const opts = {
-      products: products, // dua tu JS den HTML
-  }
-  const homepage = riot.mount('div#root','homepage', opts) // de sau const opts
-  const query = route.query()
-  console.log(query)
-  const filter = await mxFirebase.collection("products").paginate(1,100,query, '')
-  if(query){
-    console.log(filter)
+    products: products, // dua tu JS den HTML
   }
 
+  console.log(opts);
+  const homepage = riot.mount('div#root','homepage', opts) // de sau const opts
  
-var slideIndex = 1;
-showDivs(slideIndex);
-document.getElementById('aa').addEventListener('click',()=>{
-  showDivs(slideIndex -= 1)
-})
-document.getElementById('bb').addEventListener('click',()=>{
-  showDivs(slideIndex += 1)
-})
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("slides");
-  if (n > x.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = x.length}
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
+  var slideIndex = 1;
+  showDivs(slideIndex);
+  document.getElementById('aa').addEventListener('click',()=>{
+    showDivs(slideIndex -= 1)
+  })
+  document.getElementById('bb').addEventListener('click',()=>{
+    showDivs(slideIndex += 1)
+  })
+  function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("slides");
+    if (n > x.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = x.length}
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";  
+    }
+    x[slideIndex-1].style.display = "block";  
   }
-  x[slideIndex-1].style.display = "block";  
-}
 })
 route('/itemdetail..', async()=>{
   const products = await mxFirebase.collection('products').getAll() // lay tat ca moi thu tu database
@@ -152,5 +151,40 @@ route('/itemdetail..', async()=>{
   const itemdetail = riot.mount('div#root','itemdetail', opts) // de sau const opts
 })
 route.start(true);
+route("/uploadevent", () =>{
+  const upload = riot.mount("div#root", "uploadevent");
+  document.getElementById("uploadeventform").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const title = document.getElementById("title").value
+    const description = document.getElementById("description").value
+    const date = document.getElementById('date').value
+    const files = []
+    document.querySelectorAll("input[type=file]").forEach(element => {
+      if (element.files[0]) {
+        files.push(element.files[0])
+      }
+    });
 
-
+  console.log(title);
+  console.log(files);
+  console.log(description);
+  console.log(date);
+  const fileUrls = await mxFirebase.putFiles(files);
+  console.log(fileUrls);
+  const r = await mxFirebase.collection('event').save({
+    title,
+    fileUrls,
+    description,
+    date
+  });
+  console.log(r);
+})
+})
+route('event', async ()=>{
+  const event = await mxFirebase.collection('event').getAll() // lay tat ca moi thu tu database
+  const opts = {
+      event: event, // dua tu JS den HTML
+  }
+  const eventpage = riot.mount('div#root','event', opts) // de sau const opts
+})

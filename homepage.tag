@@ -27,10 +27,11 @@
     <div>
         <p>{opts.name}</p>
         <p each='{number in opts.arr}'>{number}</p>
-        <div each='{products in opts.products}'>
-            <img src="{products.fileUrls[0]}">
-            <p>{products.title}</p>
-            <p>{Number(products.price).toLocaleString('vi')}đ</p>
+        <div each='{product in opts.products}'>
+            <img src="{product.fileUrls[0]}">
+            <p>{product.title}</p>
+            <p>{Number(product.price).toLocaleString('vi')}đ</p>
         </div>
+        <a href="./item"
     </div>
 </homepage>
