@@ -115,7 +115,6 @@ route("/upload", () =>{
 route('/home..', async () => {
   const query = route.query();
   const products = (await mxFirebase.collection("products").paginate(1,100,query, '')).data; // { data: [], total: 99 } 
-  console.log(products);
   console.log(query);
   const opts = {
     products: products, // dua tu JS den HTML
@@ -144,13 +143,16 @@ route('/home..', async () => {
   }
 })
 route('/itemdetail..', async()=>{
-  const products = await mxFirebase.collection('products').getAll() // lay tat ca moi thu tu database
+  const id = route.query()._id;
+  const product = (await mxFirebase.collection("products").getOne(id)); // { data: [], total: 99 } 
+  // console.log(query2);
+  console.log("product",product)
   const opts = {
-      products: products, // dua tu JS den HTML
+    product: product, // dua tu JS den HTML
   }
   const itemdetail = riot.mount('div#root','itemdetail', opts) // de sau const opts
 })
-route.start(true);
+
 route("/uploadevent", () =>{
   const upload = riot.mount("div#root", "uploadevent");
   document.getElementById("uploadeventform").addEventListener("submit", async (e) => {
@@ -188,3 +190,4 @@ route('event', async ()=>{
   }
   const eventpage = riot.mount('div#root','event', opts) // de sau const opts
 })
+route.start(true);

@@ -31,7 +31,7 @@
             <img src="{product.fileUrls[0]}">
             <p>{product.title}</p>
             <p>{Number(product.price).toLocaleString('vi')}đ</p>
+            <a href="itemdetail?_id={product._id}">See More</a>
         </div>
-        <a href="./item"
     </div>
 </homepage>
