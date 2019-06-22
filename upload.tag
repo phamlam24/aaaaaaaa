@@ -1,12 +1,12 @@
 <upload>
         <div class=" upload"></div>
-<h1>Sell your Item</h1>
-<h3>Upload to sell, more cash to spare!</h3>
+<h1>Before you sell it...</h1>
+<h3>Let us ask you a few questions</h3>
 <div id="">
                 <form action="" id="uploadform" >
-                                <!-- <div class="uploadform1">
+                                <div class="uploadform1">
                                                 <label id="ques" for="">
-                                                        Sell your Item:
+                                                        How do you feel right now?
                                                 </label>
                                                 <div id="radios">
                                                     <div class="radio">
@@ -35,7 +35,7 @@
                                                     </div>
                                                        
                                                 </div>
-                                    </div> -->
+                                    </div>
                                                     
                                             
                                 <div class="uploadform2">
@@ -51,24 +51,23 @@
                                                 <label for="">Price(vnd)</label>
                                                 <input type="number" id="price" placeholder="Number only" required>
                                                 
-                                                <label for="">Select Age</label>
-                                                <select name="category" id="age" required>
-                                                    <option value="Children">Children</option>
-                                                    <option value="18-30">18-30</option>
-                                                    <option value="30-60">30-60</option>
-                                                    <option value="60+">60+</option>
-                                                </select>
-                                                <br>
                                                 <label for="">Select Category</label>
-                                                <select name="category2" id="type" required>
+                                                <select name="category" id="category" required>
                                                     <option value="Casual">Casual</option>
                                                     <option value="Work">Work</option>
                                                     <option value="Home">Home</option>
                                                     <option value="Others">Others</option>
+                                                    <!--  <option value="Jewelry">Jewelry</option>
+                                                    <option value="Weird Stuff">Weird Stuff</option>
+                                                    <option value="Random Stuff">Random Stuff</option>  -->
                                                 </select>
                                                 
-                                                    <label for="">Description:</label>
-                                                    <input type="text" id="description" placeholder="Write something nice here" class="whatwhy fullwidth">
+                                            
+                                                    <label for="">What are you selling?</label>
+                                                    <input type="text" id="whatsell" placeholder="Write something nice here" class="whatwhy fullwidth">
+                                                
+                                                    <label for="">Why do you sell it?</label>
+                                                    <input type="text" id="whysell" placeholder="Write something nice here" class="whatwhy fullwidth">
                                         <!--  </div>  -->
                                 </div>
                                 

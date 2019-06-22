@@ -6,16 +6,16 @@ import "./tags/signin.tag";
 import "./tags/homepage.tag";
 import "./tags/signup.tag";
 import "./tags/upload.tag"
-import "./tags/itemdetail.tag";
+import "./tags/itemdetails.tag";
 import route from "riot-route";
 import "./tags/homepage.tag"
 import {checkAuth} from './mx'
 import './mx.js'
 import './tags/event.tag'
-import './tags/uploadevent.tag'
-
-
-
+import "./tags/uploadevent.tag"
+import './tags/eventdetails.tag'
+import './tags/navbar.tag'
+import './tags/footer.tag'
 
 var firebaseConfig = {
     apiKey: "AIzaSyCqTGbcKde1ez2rqCCw5ZzmMqZn5hblayY",
@@ -31,6 +31,9 @@ mxFirebase.init(firebaseConfig);
 // firebase.initializeApp(firebaseConfig)
 
 route.base("/")
+riot.mount('*',{})
+const navbar = riot.mount("navbar",{})
+const footer = riot.mount('footer',{})
 
 checkAuth().then((user)=>{
   navbar[0].opts.email = user.email;
@@ -169,24 +172,36 @@ route("/uploadevent", () =>{
     });
 
   console.log(title);
-  console.log(files);
   console.log(description);
   console.log(date);
   const fileUrls = await mxFirebase.putFiles(files);
   console.log(fileUrls);
-  const r = await mxFirebase.collection('event').save({
+  await mxFirebase.collection('event').save({
     title,
     fileUrls,
     description,
     date
   });
-  console.log(r);
+
 })
 })
-route('event', async ()=>{
-  const event = await mxFirebase.collection('event').getAll() // lay tat ca moi thu tu database
+
+route('/eventdetails..', async ()=>{
+  const id = route.query()._id;
+  const events = (await mxFirebase.collection("event").getOne(id)); // { data: [], total: 99 } 
+  // console.log(query2);
+  console.log("event",events)
   const opts = {
-      event: event, // dua tu JS den HTML
+    events: events, // dua tu JS den HTML
+  }
+  const eventdetails = riot.mount('div#root','eventdetails', opts) // de sau const opts
+});
+
+route('/event..', async ()=>{
+  const query = route.query();
+  const events = (await mxFirebase.collection('event').paginate(1,100,query, '')).data // lay tat ca moi thu tu database
+  const opts = {
+      events: events, // dua tu JS den HTML
   }
   const eventpage = riot.mount('div#root','event', opts) // de sau const opts
 })

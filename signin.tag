@@ -1,23 +1,25 @@
 <signin>
-<div class="grid-center-middle signin">
-      <div class="signincontent">
-           <h1>Sign in here</h1>
-           <span>The best place to Sell and Tell</span>
-          <form action="" id="signinform" >
-            <div>
-                <label for="">Email address</label>
-                <input class="fullwidth" type="email" id="email" placeholder="email xịn @gmail.com" required>
-        
-            </div>
-            <div>
-                <label for="">Passwors</label>
-                <input class="fullwidth" type="password" id="password" placeholder="password xịn @gmail.com" required>
-            </div>
-            
-            <p id="errormessage"></p>
-            <button class="fullwidth">Sign In</button>
-        </form>
-      </div>
-        
+  <div class="grid-center-middle signin">
+    <div class="sign-in-content">
+      <h1>Sign in here</h1>
+      <h3>Best place to buy and check events</h3>
+      <form action="" id="sign-in-form">
+        <div>
+          <label class="label-sign-in" for="">Email:</label>
+          <input class="input-sign-in fullwidth" type="email" id="email" placeholder="Use an active email" required>
+        </div>
+        <div>
+          <label class="labelsignin" for="">Password:</label>
+          <input class="input-signin fullwidth" type="password" id="password" placeholder="Enter your password" required>
+        </div>
+
+        <p id="errormessage"></p>
+        <button class="btn-sign-in">Sign In</button>
+        <div class="alert">
+
+        </div>
+      </form>
+    </div>
+
   </div>
 </signin>
